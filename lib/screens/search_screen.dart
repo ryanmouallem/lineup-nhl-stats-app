@@ -31,66 +31,61 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> filteredPlayers = _allPlayers
-        .where((player) =>
-        player['name'].toLowerCase().contains(_query.toLowerCase()))
+    final filteredPlayers = _allPlayers
+        .where((player) => player['name'].toLowerCase().contains(_query.toLowerCase()))
         .toList();
 
     return Scaffold(
-      backgroundColor: Color(0xFFF5F5F5),
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Search Players'),
-        backgroundColor: Color(0xFF0A0A0A),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Text('Search Players', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      hintText: 'Search by player name',
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          bottomLeft: Radius.circular(6),
-                        ),
-                        borderSide: BorderSide.none,
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2))],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      decoration: InputDecoration(
+                        hintText: 'Search by player name',
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                        border: InputBorder.none,
                       ),
-                      contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      onChanged: (value) {
+                        setState(() {
+                          _query = value;
+                        });
+                      },
                     ),
-                    onChanged: (value) {
-                      setState(() {
-                        _query = value;
-                      });
-                    },
                   ),
-                ),
-                SizedBox(
-                  height: 52,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF033950),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(6),
-                          bottomRight: Radius.circular(6),
-                        ),
+                  Container(
+                    height: 52,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF033950),
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
                       ),
-                      padding: EdgeInsets.symmetric(horizontal: 18),
                     ),
-                    onPressed: () {},
-                    child: Icon(Icons.search, size: 24),
+                    child: IconButton(
+                      icon: Icon(Icons.search, color: Colors.white),
+                      onPressed: () {},
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 16),
             Expanded(
@@ -99,53 +94,63 @@ class _SearchScreenState extends State<SearchScreen> {
                   : _query.isEmpty
                   ? Center(
                 child: Text(
-                  'Start typing and press Search',
-                  style:
-                  TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  'Start typing to search for players',
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                 ),
               )
                   : filteredPlayers.isEmpty
                   ? Center(
                 child: Text(
                   'No players found',
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.grey[700]),
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                 ),
               )
                   : ListView.separated(
                 itemCount: filteredPlayers.length,
-                separatorBuilder: (_, __) => Divider(
-                  color: Color(0xFF033950).withOpacity(0.2),
-                  thickness: 1,
-                ),
+                separatorBuilder: (_, __) => SizedBox(height: 12),
                 itemBuilder: (context, index) {
                   final player = filteredPlayers[index];
-                  return ListTile(
-                    leading: SvgPicture.network(
-                      'https://assets.nhle.com/logos/nhl/svg/${player['team']}_light.svg',
-                      width: 32,
-                      height: 32,
-                      placeholderBuilder: (context) => Icon(Icons.shield, color: Colors.grey),
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 6,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
                     ),
-                    title: Text(
-                      player['name'],
-                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      leading: SvgPicture.network(
+                        'https://assets.nhle.com/logos/nhl/svg/${player['team']}_light.svg',
+                        width: 36,
+                        height: 36,
+                        placeholderBuilder: (context) => Icon(Icons.shield, color: Colors.grey),
+                      ),
+                      title: Text(
+                        player['name'],
+                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+                      ),
+                      subtitle: Text(
+                        player['team'],
+                        style: TextStyle(color: Colors.grey[700]),
+                      ),
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          '/profile',
+                          arguments: {
+                            'name': player['name'],
+                            'team': player['team'],
+                            'id': player['id'],
+                          },
+                        );
+                      },
                     ),
-                    subtitle: Text(
-                      player['team'],
-                      style: TextStyle(color: Colors.grey[700]),
-                    ),
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        '/profile',
-                        arguments: {
-                          'name': player['name'],
-                          'team': player['team'],
-                          'id': player['id'],
-                        },
-                      );
-                    },
                   );
                 },
               ),
