@@ -4,12 +4,14 @@ import '../models/player.dart';
 
 class FavoritesProvider extends ChangeNotifier {
   final String uid;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
   List<Player> _favorites = [];
 
   List<Player> get favorites => List.unmodifiable(_favorites);
 
-  FavoritesProvider(this.uid);
+  FavoritesProvider(this.uid, {FirebaseFirestore? firestore})
+      : _firestore = firestore ?? FirebaseFirestore.instance;
+
 
   Future<void> init() async {
     if (uid.isEmpty) return;
