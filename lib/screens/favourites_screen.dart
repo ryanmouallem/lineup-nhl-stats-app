@@ -4,6 +4,8 @@ import '../providers/favorites_provider.dart';
 import '../models/player.dart';
 
 class FavouritesScreen extends StatelessWidget {
+  const FavouritesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final favoritesProvider = Provider.of<FavoritesProvider?>(context);

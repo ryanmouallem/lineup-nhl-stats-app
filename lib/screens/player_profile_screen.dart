@@ -8,6 +8,8 @@ import '../providers/favorites_provider.dart';
 import '../models/player.dart';
 
 class PlayerProfileScreen extends StatefulWidget {
+  const PlayerProfileScreen({super.key});
+
   @override
   _PlayerProfileScreenState createState() => _PlayerProfileScreenState();
 }
@@ -222,7 +224,7 @@ class _HeaderDelegate extends SliverPersistentHeaderDelegate {
 class AnimatedFavoriteButton extends StatefulWidget {
   final String playerId;
   final Player player;
-  const AnimatedFavoriteButton({required this.playerId, required this.player});
+  const AnimatedFavoriteButton({super.key, required this.playerId, required this.player});
   @override
   State<AnimatedFavoriteButton> createState() => _AnimatedFavoriteButtonState();
 }

@@ -9,7 +9,7 @@ void main() {
       'team': 'EDM',
       'headshot': 'https://example.com/h.png',
       'teamLogo': 'https://example.com/t.svg',
-      'height': '6\'1\"',
+      'height': '6\'1"',
       'weight': 195,
       'birthCity': 'Richmond Hill',
       'birthCountry': 'Canada'

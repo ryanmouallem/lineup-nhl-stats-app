@@ -3,6 +3,8 @@ import '../services/nhl_api_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
