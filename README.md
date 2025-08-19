@@ -1,16 +1,24 @@
-# lineup
+# Lineup – NHL Stats Mobile App
 
-A new Flutter project.
+## Project Overview
+Lineup is a mobile application developed in Flutter that provides hockey fans with a simple and effective way to explore NHL player data. The application connects to the official NHL Stats API to display up-to-date player information and statistics, while Firebase Authentication and Realtime Database are used to deliver secure, personalized experiences. The project demonstrates cross-platform development, API integration, and cloud-backed user authentication in a production-ready mobile environment.
 
-## Getting Started
+## Features
+- Player search by name  
+- Player profiles with detailed statistics  
+- Personalized favorites list  
+- Secure login using Firebase Authentication  
+- User-specific data storage with Firebase Realtime Database  
+- Cross-platform support (Android, iOS, macOS, Windows, Linux)
 
-This project is a starting point for a Flutter application.
+## Technology Stack
+- Flutter and Dart  
+- NHL Stats API  
+- Firebase Authentication  
+- Firebase Realtime Database  
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Future Development
+- Advanced statistics and analytics (Corsi, Fenwick, expected goals)  
+- Scouting reports and player comparison tools  
+- Team and roster search  
+- UI and UX refinements  
